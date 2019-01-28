@@ -34,92 +34,50 @@ const ITEM_LIST = [
     {
         name: 'Bag of holding',
         type: 'Armor',
-        durability: 37,
-        enhancement: 12,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 79,
-        enhancement: 9,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 44,
-        enhancement: 8,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 4,
-        enhancement: 12,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 41,
-        enhancement: 11,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 52,
-        enhancement: 1,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 7,
-        enhancement: 11,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 21,
-        enhancement: 13,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 3,
-        enhancement: 4,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 23,
-        enhancement: 16,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 89,
+        durability: 34,
         enhancement: 14,
     },
     {
         name: 'Bag of holding',
         type: 'Armor',
-        durability: 17,
+        durability: 64,
+        enhancement: 1,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 92,
+        enhancement: 11,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 9,
+        enhancement: 14,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 61,
+        enhancement: 3,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 74,
+        enhancement: 19,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 6,
+        enhancement: 13,
+    },
+    {
+        name: 'Bag of holding',
+        type: 'Armor',
+        durability: 82,
         enhancement: 4,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 51,
-        enhancement: 12,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 48,
-        enhancement: 16,
-    },
-    {
-        name: 'Bag of holding',
-        type: 'Armor',
-        durability: 47,
-        enhancement: 12,
     },
 ];
 
@@ -129,8 +87,8 @@ describe('Upgrade library', () => {
             expect(enhance.success(ITEM_LIST[0])).toEqual({
                 name: '[+3] Bag of holding',
                 type: 'Armor',
-                durability: 96,
                 enhancement: 3,
+                durability: 96,
             });
             expect(enhance.success(ITEM_LIST[4])).toEqual({
                 name: '[DUO] Bag of holding',
@@ -140,6 +98,27 @@ describe('Upgrade library', () => {
             });
         });
     });
-    describe('fail()', () => {});
-    describe('repair()', () => {});
+    describe('fail()', () => {
+        test('Modifies durability, and name as well as enhancement level depending on starting level', () => {
+            expect(enhance.fail(ITEM_LIST[0])).toEqual({
+                name: 'Bag of holding',
+                type: 'Armor',
+                durability: 91,
+                enhancement: 2,
+            });
+            expect(enhance.fail(ITEM_LIST[10])).toEqual({
+                name: '[TRI] Bag of holding',
+                type: 'Armor',
+                durability: 64,
+                enhancement: 18,
+            });
+        });
+    });
+    describe('repair()', () => {
+        test('Restores durability', () => {
+            expect(enhance.repair(ITEM_LIST[0].durability)).toEqual({
+                durability: 100,
+            });
+        });
+    });
 });
